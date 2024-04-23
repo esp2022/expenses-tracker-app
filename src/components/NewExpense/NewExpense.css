@@ -1,0 +1,53 @@
+.new-expense {
+  background-color: #259c68;
+  padding: 1rem;
+  margin: 2rem auto;
+  width: 35rem;
+  max-width: 95%;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+}
+
+.new-expense__control label {
+  display: block;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: .5rem;
+  text-align: center;
+  display: block;
+  margin-top: 10px;
+}
+
+.new-expense button {
+  font: inherit;
+  cursor: pointer;
+  padding: 1rem 2rem;
+  border: 1px solid #3ab077;
+  background-color: #000000;
+  color: white;
+  border-radius: 12px;
+  margin-right: 1rem;
+  margin-bottom: 15px;
+}
+
+.new-expense button:hover,
+.new-expense button:active {
+  background-color: #b6b6b6;
+  border-color: #000000;
+}
+
+.expense-item:hover .expense-item__price {
+  transform: scale(1.1);
+}
+
+.new-expense button.alternative {
+  color: #220131;
+  border-color: transparent;
+  background-color: transparent;
+}
+
+

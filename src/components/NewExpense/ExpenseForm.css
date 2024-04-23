@@ -1,0 +1,71 @@
+.new-expense__controls {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  text-align: left;
+  margin-left: 1rem;
+}
+
+.new_expense__control_label_input {
+  display: flex;
+  align-items: center;
+   max-width: 10rem;
+  margin-top: 1rem;
+  margin-left: 1rem;
+}
+
+.new_expense__control_label_input label {
+  display: flex;
+   width: 5rem;
+   flex-shrink: 0; 
+  font-size: large;
+  font-weight: bold;
+  align-items: center;
+ margin-right: 1rem;
+ 
+}
+
+.new_expense__control_label_input input {
+  font: inherit;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  min-width: 20rem;
+}
+
+.new_expense__control_label_input select {
+  font: inherit;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  min-width: 20rem;
+}
+
+.new-expense__control label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.new-expense__control input {
+  font: inherit;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 15rem;
+  max-width: 100%;
+}
+
+.new-expense__actions {
+  text-align: right;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.expense-item h2 {
+  margin-left: 0;
+  padding-left: 1rem;
+}

@@ -1,0 +1,7 @@
+.footer {
+   background-color: #1b5e20; /* Darker green background for the footer */
+  color: #c8e6c9;
+  text-align: center; 
+   width: 100%;
+   padding:0.1rem;
+}

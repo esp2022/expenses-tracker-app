@@ -1,0 +1,76 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #0a2e21; /* Dark green background */
+}
+
+.form {
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #1b5e20; /* Darker green background for the form */
+  width: 100%;
+  max-width: 400px;
+}
+
+.logo {
+  display: block;
+  margin: 0 auto 20px; /* Center the logo and add some margin below */
+  width: 100px; /* Adjust width as needed */
+  height: auto; /* Maintain aspect ratio */
+}
+
+.title {
+  color: #c8e6c9;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.label {
+  color: #ffffff;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.input {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1.5rem;
+  border-radius: 4px;
+  border: 1px solid #388e3c;
+  background-color: #2e7d32;
+  color: #ffffff;
+}
+
+.button {
+  width: 100%;
+  padding: 1rem;
+  border: none;
+  border-radius: 4px;
+  background-color: #4caf50;
+  color: #ffffff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button:hover {
+  background-color: #66bb6a;
+}
+
+.text {
+  text-align: center;
+  color: #c8e6c9;
+  margin-top: 1rem;
+}
+
+.link {
+  color: #a5d6a7;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
