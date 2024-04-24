@@ -2,22 +2,38 @@
 import Link from "next/link";
 import styles from "./register.module.css";
 import Image from "next/image";
+import axios from 'axios';
+import React, {useState} from 'react';
 import { useRouter } from "next/navigation";
 
 export default function Register() {
   const router = useRouter();
+
+  const [name, setName]=useState('');
+  const [email, setEmail]=useState('');
+  const [password, setPassword]=useState('');
+  const [confirmPassword, setConfirmPassword]=useState('');
+
   const onClickHomeHandler = () => {
     router.push("/");
   };
 
-  const onSubmitHandler = (event) => {
+  async function onSubmitHandler(event) {
     event.preventDefault();
-    router.push("/login");
+    
+    try {
+      await axios.post("http://localhost:3000/", {
+        name, email, password
+      })
+    }
+    catch(event){
+      console.log(event);
+    }
   };
 
   return (
     <div className={styles.container}>
-      <form className={styles.form} onSubmit={onSubmitHandler}>
+      <form action="POST" className={styles.form} onSubmit={onSubmitHandler}>
         <Image
           onClick={onClickHomeHandler}
           className={styles.logo}
@@ -36,6 +52,7 @@ export default function Register() {
           name="name"
           required
           className={styles.input}
+          onChange={(e) => {setName(e.target.value)}}
         />
 
         <label htmlFor="email" className={styles.label}>
@@ -47,6 +64,7 @@ export default function Register() {
           name="email"
           required
           className={styles.input}
+          onChange={(e) => {setEmail(e.target.value)}}
         />
 
         <label htmlFor="password" className={styles.label}>
@@ -58,6 +76,7 @@ export default function Register() {
           name="password"
           required
           className={styles.input}
+          onChange={(e) => {setPassword(e.target.value)}}
         />
 
         <label htmlFor="confirm-password" className={styles.label}>
@@ -69,6 +88,7 @@ export default function Register() {
           name="confirm-password"
           required
           className={styles.input}
+          onChange={(e) => {setConfirmPassword(e.target.value)}}
         />
 
         <button type="submit" className={styles.button}>

@@ -2,29 +2,43 @@
 import Link from "next/link";
 import styles from "./Login.module.css";
 import Image from "next/image";
+import axios from 'axios';
+import React, {useState} from 'react';
 import { useRouter } from "next/navigation";
 
 export default function Login() {
   const router = useRouter();
+
+  const [email, setEmail]=useState('');
+  const [password,setPassword]=useState('');
+
   const onClickHomeHandler = () => {
     router.push("/");
   };
 
   /* if email id is submitted as Eeshwar.Potluri@uga.edu go to admin  otherwise always  go to dashboard  */
 
-  const onSubmitHandler = (event) => {
+  async function onSubmitHandler(event) {
     event.preventDefault();
-    const email = event.target.email.value;
+    /*const email = event.target.email.value;
     if (email === "Eeshwar.Potluri@uga.edu") {
       router.push("/admin");
     } else {
       router.push("/dashboard");
+    }*/
+    try {
+      await axios.post("http://localhost:3000/", {
+        email,password
+      })
+    }
+    catch(event) {
+      console.log(event);
     }
   }
 
   return (
     <div className={styles.container}>
-      <form className={styles.form} onSubmit={onSubmitHandler}>
+      <form action="POST" className={styles.form} onSubmit={onSubmitHandler}>
         <Image
           onClick={onClickHomeHandler}
           className={styles.logo}
@@ -42,6 +56,7 @@ export default function Login() {
           name="email"
           required
           className={styles.input}
+          onChange={(e) => {setEmail(e.target.value)}}
         />
 
         <label htmlFor="password" className={styles.label}>
@@ -53,6 +68,7 @@ export default function Login() {
           name="password"
           required
           className={styles.input}
+          onChange={(e) => {setPassword(e.target.value)}}
         />
 
         <button type="submit" className={styles.button}>
