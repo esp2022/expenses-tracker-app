@@ -22,8 +22,19 @@ export default function Register() {
     event.preventDefault();
     
     try {
-      await axios.post("http://localhost:3000/", {
+      await axios.post("http://localhost:3000/register", {
         name, email, password
+      })
+      .then(res => {
+        if(res.data="exist") {
+          alert("User already exists")
+        } else if(res.data="notexist") {
+          router.push("/login")
+        }
+      })
+      .catch(e => {
+        alert("wrong credentials")
+        console.log(e)
       })
     }
     catch(event){
@@ -33,7 +44,7 @@ export default function Register() {
 
   return (
     <div className={styles.container}>
-      <form action="POST" className={styles.form} onSubmit={onSubmitHandler}>
+      <form className={styles.form} onSubmit={onSubmitHandler}>
         <Image
           onClick={onClickHomeHandler}
           className={styles.logo}

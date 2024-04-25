@@ -27,8 +27,19 @@ export default function Login() {
       router.push("/dashboard");
     }*/
     try {
-      await axios.post("http://localhost:3000/", {
+      await axios.post("http://localhost:3000/login", {
         email,password
+      })
+      .then(res => {
+        if(res.data="exist") {
+          router.push("/dashboard")
+        } else if(res.data="notexist") {
+          alert("User hasn't singed up")
+        }
+      })
+      .catch(e => {
+        alert("wrong credentials")
+        console.log(e)
       })
     }
     catch(event) {
@@ -38,7 +49,7 @@ export default function Login() {
 
   return (
     <div className={styles.container}>
-      <form action="POST" className={styles.form} onSubmit={onSubmitHandler}>
+      <form className={styles.form} onSubmit={onSubmitHandler}>
         <Image
           onClick={onClickHomeHandler}
           className={styles.logo}
