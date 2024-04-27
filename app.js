@@ -1,65 +1,25 @@
-const express = require("express")
-const cors = require("cors")
-const app = express()
-const collection = require('./models/User')
-app.use(express.json())
-app.use(express.urlencoded({extended: true}))
-app.use(cors())
-//const mongoose=require("mongoose")
+const express = require('express');
+const app = express();
+const port = process.env.PORT || 3003;
+const mongoose = require('mongoose');
+const cors = require('cors')
+const users = require("./routes/api/users");
 
-/*const conn_str = 'mongodb+srv://jms86025:3D8j84qg$@projectcluster.togn60n.mongodb.net';
-mongoose.connect(conn_str)
-.then(() => {
-    console.log("mongodb connected");
-})
-.catch(() => {
-    console.log('failed');
-})*/
-
-app.get("/login", cors(), (req,res) => {
-
+app.use('/api/users', users);
+app.use(cors({origin: true, credentials: true}));
+app.get ('/', (req, res) => res.send('Hello world!'));
+app.get('/user/:id', (req, res) => {
+    res.send(`user ${req.params.id}`)
 })
 
-app.post("/login",async(req,res) =>{
-    const{email, password} = req.body
-
-    try {
-        const check=await User.findOne({email:email})
-        if (check) {
-            res.json("exist")
-        }
-        else {
-            res.json("notexist")
-        }
-    }
-    catch(e) {
-        res.json("notexist")
-    }
+const conn_str = 'mongodb+srv://dbrohank66:dbwebprogram24@projectcluster.zxyq81l.mongodb.net/'
+mongoose.set('strictQuery', false);
+mongoose.connect(conn_str).then(() => {
+    app.listen(port, () => console.log(`Server running on port${port}`));
+    console.log('MongoDB Connection Suceeded...');
 })
+.catch(err => {
+    console.log("Error in DB Connection ${err}");
+});
 
-app.post("/register",async(req,res) =>{
-    const{name, email, password} = req.body
 
-    const data={
-        name:name,
-        email: email,
-        password:password
-    }
-    try {
-        const check=await User.findOne({email:email})
-        if (check) {
-            res.json("exist")
-        }
-        else {
-            res.json("notexist")
-            await User.insertMany({data})
-        }
-    }
-    catch(e) {
-        res.json("notexist")
-    }
-})
-
-app.listen(3000,() => {
-    console.log("port connected");
-})

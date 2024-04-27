@@ -20,36 +20,19 @@ export default function Login() {
 
   async function onSubmitHandler(event) {
     event.preventDefault();
-    /*const email = event.target.email.value;
-    if (email === "Eeshwar.Potluri@uga.edu") {
-      router.push("/admin");
-    } else {
-      router.push("/dashboard");
-    }*/
     try {
-      await axios.post("http://localhost:3000/login", {
-        email,password
-      })
-      .then(res => {
-        if(res.data="exist") {
-          router.push("/dashboard")
-        } else if(res.data="notexist") {
-          alert("User hasn't singed up")
-        }
-      })
-      .catch(e => {
-        alert("wrong credentials")
-        console.log(e)
-      })
-    }
-    catch(event) {
-      console.log(event);
+      const response = await axios.post('http://localhost:3003/routes/api/users', { Email: email, Password: password });
+      alert('Login successful');
+      navigate('/Dashboard'); // Navigate to the homepage or wherever appropriate after login
+    } catch (error) {
+      console.error('Login failed:', error);
+      alert('Login failed: ' + (error.response.data.msg || 'Server error'));
     }
   }
 
   return (
     <div className={styles.container}>
-      <form className={styles.form} onSubmit={onSubmitHandler}>
+      <form action="/login" method="post" className={styles.form} onSubmit={onSubmitHandler}>
         <Image
           onClick={onClickHomeHandler}
           className={styles.logo}
@@ -92,6 +75,8 @@ export default function Login() {
           </Link>
         </p>
       </form>
+
+      <a href="/register">Make new account</a>
     </div>
   );
 }

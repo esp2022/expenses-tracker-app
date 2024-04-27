@@ -1,12 +1,6 @@
-const mongoose = require("mongoose");
-const conn_str = 'mongodb+srv://jms86025:3D8j84qg$@projectcluster.togn60n.mongodb.net';
-mongoose.connect(conn_str)
-.then(() => {
-    console.log("mongodb connected");
-})
-.catch(() => {
-    console.log('failed');
-})
+const mongoose = require('mongoose');
+
+
 const userSchema = new mongoose.Schema({
     name: {
         required: true,
@@ -31,5 +25,5 @@ const userSchema = new mongoose.Schema({
         trim: true,
     }
 });
-const collection = mongoose.model('collection', userSchema);
-module.exports = collection;
+
+module.exports = User = mongoose.model('user', userSchema);

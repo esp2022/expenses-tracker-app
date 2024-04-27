@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 export default function Register() {
   const router = useRouter();
 
-  const [name, setName]=useState('');
+  const [username, setName]=useState('');
   const [email, setEmail]=useState('');
   const [password, setPassword]=useState('');
   const [confirmPassword, setConfirmPassword]=useState('');
@@ -19,32 +19,26 @@ export default function Register() {
   };
 
   async function onSubmitHandler(event) {
-    event.preventDefault();
+      event.preventDefault(); // Prevents the default form submission behavior
     
-    try {
-      await axios.post("http://localhost:3000/register", {
-        name, email, password
-      })
-      .then(res => {
-        if(res.data="exist") {
-          alert("User already exists")
-        } else if(res.data="notexist") {
-          router.push("/login")
-        }
-      })
-      .catch(e => {
-        alert("wrong credentials")
-        console.log(e)
-      })
-    }
-    catch(event){
-      console.log(event);
-    }
-  };
+      if (password !== confirmPassword) {
+        alert('Passwords do not match!');
+        return;
+      }
+    
+      try {
+        const response = await axios.post('http://localhost:3003/api/users', { Username: username, Email: email, Password: password, ConfirmPassword: confirmPassword});
+        alert('Account created successfully');
+        setCurrentView('login'); // Set the current view back to login after account creation
+      } catch (error) {
+        console.error('Failed to create account:', error);
+        alert('Failed to create account');
+      }
+    };
 
   return (
     <div className={styles.container}>
-      <form className={styles.form} onSubmit={onSubmitHandler}>
+      <form action="/register" method="post" className={styles.form} onSubmit={onSubmitHandler}>
         <Image
           onClick={onClickHomeHandler}
           className={styles.logo}
