@@ -2,8 +2,6 @@ const express = require('express');
 const router = express.Router();
 var bodyParser = require("body-parser");
 
-const Expense = require('../../models/Expense');
-
 module.exports = router;
 
 

@@ -4,6 +4,7 @@ import styles from "./register.module.css";
 import Image from "next/image";
 import axios from 'axios';
 import React, {useState} from 'react';
+import userContext from "../../../../context/userContext";
 import { useRouter } from "next/navigation";
 
 export default function Register() {
@@ -27,9 +28,10 @@ export default function Register() {
       }
     
       try {
-        const response = await axios.post('http://localhost:3003/api/users', { Username: username, Email: email, Password: password, ConfirmPassword: confirmPassword});
+        console.log({Username: username, Email: email, Password: password, ConfirmPassword: confirmPassword});
+        const response = await axios.post('http://localhost:8085/api/users/register', { Username: username, Email: email, Password: password, ConfirmPassword: confirmPassword});
+        console.log('Login Successful:', response.data)
         alert('Account created successfully');
-        setCurrentView('login'); // Set the current view back to login after account creation
       } catch (error) {
         console.error('Failed to create account:', error);
         alert('Failed to create account');
@@ -109,3 +111,5 @@ export default function Register() {
     </div>
   );
 }
+
+

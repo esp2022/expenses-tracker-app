@@ -15,18 +15,15 @@ export default function Login() {
   const onClickHomeHandler = () => {
     router.push("/");
   };
-
-  /* if email id is submitted as Eeshwar.Potluri@uga.edu go to admin  otherwise always  go to dashboard  */
-
+  
   async function onSubmitHandler(event) {
     event.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3003/routes/api/users', { Email: email, Password: password });
-      alert('Login successful');
+      const response = await axios.post('http://localhost:8085/api/users/login', { Email: email, Password: password });
+      console.log('Login Successful:', response.data)
       navigate('/Dashboard'); // Navigate to the homepage or wherever appropriate after login
     } catch (error) {
       console.error('Login failed:', error);
-      alert('Login failed: ' + (error.response.data.msg || 'Server error'));
     }
   }
 
