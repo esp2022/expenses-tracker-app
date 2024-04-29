@@ -2,6 +2,8 @@ const express = require("express");
 const bcryptjs = require("bcryptjs");
 const userRouter = express.Router();
 const jwt = require("jsonwebtoken");
+const auth = require("../../middleware/auth");
+const secretKey = "mySecretKey";
 const User = require('../../models/User');
 var bodyParser = require("body-parser");
 
@@ -12,23 +14,23 @@ userRouter.post("/register", async (req,res) => {
         //const {username, email, password, confirmPassword,} = req.body;
         console.log(req.body);
         if (!req.body.Username || !req.body.Email || !req.body.Password || !req.body.ConfirmPassword) {
-            return res.status(400).json({msg: "Please enter all fields"});
+            return res.status(410).json({msg: "Please enter all fields"});
         }
         if (req.body.Password.length < 6) {
             return res
-                .status(400)
+                .status(410)
                 .json({msg: "Password should be at least 6 characters"});
         }
         if (req.body.ConfirmPassword !== req.body.Password) {
-            return res.status(400).json({ msg: "Passwords do not match"});
+            return res.status(410).json({ msg: "Passwords do not match"});
         }
         console.log("made it to 4");
-        const existingUser = await User.findOne({email});
+        const existingUser = await User.findOne({email: req.body.Email});
         console.log(existingUser);
         if (existingUser) {
             console.log("made it to 6 for some reason");
             return res
-                .status(400)
+                .status(410)
                 .json({ msg: "User with the same email already exists"})
         }
         const hashedPassword = await bcryptjs.hash(req.body.Password, 8);
@@ -45,26 +47,29 @@ userRouter.post("/register", async (req,res) => {
         res.status(500).json({ error: err.message});
     }
 });
-/*
 
-// Login Route
+
+//Login Route
 userRouter.post("/login", async (req, res) => {
     try {
-        const { email, password } = req.body;
-        if (!email || !password) {
-            return res.status(400).json({ msg: "Please enter all fields"})
+        if (!req.body.Email || !req.body.Password) {
+            return res.status(410).json({ msg: "Please enter all fields"})
         }
-        const user = await User.findOne({ email });
-        if (!user) {
+        const user = await User.findOne({email: req.body.Email});
+        console.log(user);
+        if (req.body.User) {
             return res
-                .status(400)
+                .status(410)
                 .send({ msg: "User with this email does not exist"});
         }
-        const isMatch = await bcryptjs.compare(password, user.password);
+        console.log("made it here");
+        const isMatch = await bcryptjs.compare(req.body.Password, user.password);
+        console.log(isMatch);
         if (!isMatch) {
-            return res.status(400).send({ msg: "Incorrect password"});
+            return res.status(410).send({ msg: "Incorrect password"});
         }
         const token = jwt.sign({ id: user._id }, secretKey);
+        console.log(token);
         res.json({ token, user: {id: user._id, username: user.username } });
     } catch (err) {
         res.status(500).json({ error: err.message});
@@ -116,5 +121,5 @@ userRouter.delete('/:userId', (req,res) => {
 
 
 
-*/
+
 module.exports = userRouter;

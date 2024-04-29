@@ -21,9 +21,10 @@ export default function Login() {
     try {
       const response = await axios.post('http://localhost:8085/api/users/login', { Email: email, Password: password });
       console.log('Login Successful:', response.data)
-      navigate('/Dashboard'); // Navigate to the homepage or wherever appropriate after login
+      router.push("/dashboard")
     } catch (error) {
       console.error('Login failed:', error);
+      alert("Invalid Credentials");
     }
   }
 
