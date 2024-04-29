@@ -1,34 +1,31 @@
 const mongoose = require('mongoose');
 
-const ExpenseSchema = new mongoose.Schema({
+const expenseSchema = new mongoose.Schema({
     id: {
         type: String,
-        required: true,
+        required:true
     },
     img: {
-        type: String,
-    },
-    category: {
         type: String,
         required: true,
     },
     title: {
         type: String,
+        required: true,
+    },
+    amount: {
+        type: String,
+        required: true
+    },
+    category: {
+        type: String,
+        required: true,
     },
     date: {
         type: Date,
         default: Date.now,
-    },
-    amount: {
-        type: String,
-    },
-    onEdit: {
-        type: Function,
-    },
-    onDelete: {
-        type: Function,
-    },
+    }
 });
 
 
-module.exports = Expense = mongoose.model('expense', ExpenseSchema);
+module.exports = Expense = mongoose.model('Expense', expenseSchema);

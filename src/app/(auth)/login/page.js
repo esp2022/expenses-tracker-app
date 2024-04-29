@@ -73,8 +73,6 @@ export default function Login() {
           </Link>
         </p>
       </form>
-
-      <a href="/register">Make new account</a>
     </div>
   );
 }

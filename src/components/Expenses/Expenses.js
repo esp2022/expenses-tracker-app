@@ -3,7 +3,7 @@ import Card from '../UI/Card'
 import ExpenseItem from './ExpenseItem';
 import './Expenses.css';
 
-const Expenses = ({items , onEdit , onDelete }) => {
+const Expenses = ({items, onEdit, onDelete}) => {
   
   return (
     <div className="expenses">
@@ -17,9 +17,8 @@ const Expenses = ({items , onEdit , onDelete }) => {
             title={item.title}
             date={item.date}
             amount={item.amount}
-            onEdit={onEdit} 
+            onEdit={onEdit}
             onDelete={onDelete}
-         
           />
         </Card>
       ))}

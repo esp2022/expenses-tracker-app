@@ -11,8 +11,6 @@ var bodyParser = require("body-parser");
 //Signup Route
 userRouter.post("/register", async (req,res) => {
     try {
-        //const {username, email, password, confirmPassword,} = req.body;
-        console.log(req.body);
         if (!req.body.Username || !req.body.Email || !req.body.Password || !req.body.ConfirmPassword) {
             return res.status(410).json({msg: "Please enter all fields"});
         }
@@ -24,24 +22,16 @@ userRouter.post("/register", async (req,res) => {
         if (req.body.ConfirmPassword !== req.body.Password) {
             return res.status(410).json({ msg: "Passwords do not match"});
         }
-        console.log("made it to 4");
         const existingUser = await User.findOne({email: req.body.Email});
-        console.log(existingUser);
         if (existingUser) {
-            console.log("made it to 6 for some reason");
             return res
                 .status(410)
                 .json({ msg: "User with the same email already exists"})
         }
         const hashedPassword = await bcryptjs.hash(req.body.Password, 8);
-        console.log("made it to 7");
         const newUser = new User({ email: req.body.Email, password: hashedPassword, username: req.body.Username});
-        console.log("made it to 8");
-        console.log(newUser)
 
         const savedUser = await newUser.save();
-        console.log("made it to 9");
-        console.log(savedUser.username);
         res.json(savedUser);
     } catch (err) {
         res.status(500).json({ error: err.message});
@@ -56,20 +46,16 @@ userRouter.post("/login", async (req, res) => {
             return res.status(410).json({ msg: "Please enter all fields"})
         }
         const user = await User.findOne({email: req.body.Email});
-        console.log(user);
         if (req.body.User) {
             return res
                 .status(410)
                 .send({ msg: "User with this email does not exist"});
         }
-        console.log("made it here");
         const isMatch = await bcryptjs.compare(req.body.Password, user.password);
-        console.log(isMatch);
         if (!isMatch) {
             return res.status(410).send({ msg: "Incorrect password"});
         }
         const token = jwt.sign({ id: user._id }, secretKey);
-        console.log(token);
         res.json({ token, user: {id: user._id, username: user.username } });
     } catch (err) {
         res.status(500).json({ error: err.message});

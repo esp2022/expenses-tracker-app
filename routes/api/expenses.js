@@ -1,10 +1,22 @@
-const express = require('express');
-const router = express.Router();
+const express = require("express");
+const expenseRouter = express.Router();
+const Expense = require('../../models/Expense');
 var bodyParser = require("body-parser");
 
-module.exports = router;
-
-
+//add route
+expenseRouter.post("/add", async (req,res) => {
+    try {
+        if (!req.body.Title || !req.body.Category || !req.body.Amount || !req.body.Date) {
+            return res.status(410).json({msg: "Missing an item"});
+        }
+        const newExpense = new Expense({ id: req.body.Id, img: req.body.Img, title: req.body.Title, category: req.body.Category, amount: req.body.Amount, date: req.body.Date});
+        const savedExpense = await newExpense.save();
+        res.json(savedExpense);
+    } catch (err) {
+        res.status(500).json({error: err.message});
+    }
+});
+/*
 router.post('/', bodyParser.json(), (req,res) => {
     Expense.create(req.body)
         .then((expense) => res.json({msg: 'Expense added successfully'}))
@@ -34,3 +46,6 @@ router.delete('/:id', (req, res) => {
     .then((expense) => res.json({msg: 'Expense entry deleted successfully'}))
     .catch((err) => res.status(404).json({error: 'No such expense'}));
 });
+*/
+
+module.exports = expenseRouter;

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Card from '../UI/Card';
 import './ExpenseForm.css';
+import axios from 'axios';
 
 /**
  * React component for a form to create a new expense.
@@ -17,6 +18,7 @@ const ExpenseForm = (props) => {
   const [enteredImg, setEnteredImg] = useState('/Other.png');
   const [enteredDate, setEnteredDate] = useState(todaysDate);
   const [enteredCategory, setEnteredCategory] = useState('Other');
+  const [id, setId] = useState('');
 
   /**
    * Handles the change event of the title input.
@@ -73,23 +75,38 @@ const ExpenseForm = (props) => {
    * 
    * @param {React.FormEvent<HTMLFormElement>} event - The event object.
    */
-  const submitHandler = (event) => {
+  async function submitHandler (event) {
     event.preventDefault();
-    if (!enteredTitle || !enteredAmount || !enteredImg || !enteredDate) {
+    if (!enteredTitle || !enteredAmount || !enteredCategory || !enteredDate) {
       alert('Please fill in all fields');
       return;
     }
+    try {
+      setId(Math.random());
+      console.log("made it to z");
+      console.log({Id: id, Img: enteredImg, Title: enteredTitle, Category: enteredCategory, Amount: enteredAmount, Date: enteredDate});
+      const response = await axios.post('http://localhost:8085/api/expenses/add', {Id: id, Img: enteredImg, Title: enteredTitle, Category: enteredCategory, Amount: enteredAmount, Date: enteredDate});
+      console.log('Added Successfully', response.data);
+      alert('Expense Added Successfully');
+    } catch (error) {
+      console.error('Failed to create account:', error);
+      alert('Failed to create account');
+    }
 
     const expenseData = {
+      id: id,
       title: enteredTitle,
       amount: enteredAmount,
       img: enteredImg,
-      date:enteredDate,
+      date: enteredDate,
       category: enteredCategory
     };
 
+    
+
     props.onSaveExpenseData(expenseData);
-    //console.log(expenseData);
+    console.log("expenseData:");
+    console.log(expenseData);
 
     setEnteredTitle('');
     setEnteredAmount('');
