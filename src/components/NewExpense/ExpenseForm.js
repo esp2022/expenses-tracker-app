@@ -86,8 +86,10 @@ const ExpenseForm = (props) => {
       console.log("made it to z");
       console.log({Id: id, Img: enteredImg, Title: enteredTitle, Category: enteredCategory, Amount: enteredAmount, Date: enteredDate});
       const response = await axios.post('http://localhost:8085/api/expenses/add', {Id: id, Img: enteredImg, Title: enteredTitle, Category: enteredCategory, Amount: enteredAmount, Date: enteredDate});
+      console.log("made it to a");
       console.log('Added Successfully', response.data);
       alert('Expense Added Successfully');
+      console.log("B");
     } catch (error) {
       console.error('Failed to create account:', error);
       alert('Failed to create account');

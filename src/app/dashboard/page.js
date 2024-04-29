@@ -60,6 +60,14 @@ export default function Dashboard() {
     }
   ]);
 
+const addExpenseHandler = (expenseData) => {
+    setExpenses((prevExpenses) => [...prevExpenses, expenseData]);
+    setExpensesTotal(
+      (prevExpensesTotal) =>
+        parseFloat(prevExpensesTotal) + parseFloat(expenseData.amount)
+    );
+  };
+
   // Define expense editing function
   const handleEdit = (id, editedPrice) => {
     setExpenses((prevExpenses) =>

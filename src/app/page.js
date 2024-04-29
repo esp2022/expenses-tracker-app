@@ -23,6 +23,21 @@ export default function Home() {
             <h2>Register &rarr;</h2>
             <p>Create a new account to start tracking your expenses.</p>
           </Link>
+          <div className={styles.card}>
+            <h2>Guest &rarr;</h2>
+            <p>Look Below for Sample of Application.</p>
+          </div>
+          <div>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+            <h3>
+            <img src = "/unauthView.png" width="1000px" height="1000px"> 
+            </img>
+            </h3>
+          </div>
         </div>
       </main>
     </div>
