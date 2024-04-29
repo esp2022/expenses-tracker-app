@@ -17,13 +17,13 @@ const userSchema = new mongoose.Schema({
     password: {
         required: true,
         type: String,
-        minLength: 6,
+        minlength: 6,
     },
-    confirmPassword: {
+    /*confirmPassword: {
         required: true,
         type: String,
         trim: true,
-    },
+    },*/
 });
 
-module.exports = User = mongoose.model('user', userSchema);
+module.exports = User = mongoose.model('User', userSchema);

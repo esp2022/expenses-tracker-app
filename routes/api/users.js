@@ -9,35 +9,43 @@ var bodyParser = require("body-parser");
 //Signup Route
 userRouter.post("/register", async (req,res) => {
     try {
-        const { username, email, password, confirmPassword,} = req.body;
-        if (!username || !email || !password || !confirmPassword) {
+        //const {username, email, password, confirmPassword,} = req.body;
+        console.log(req.body);
+        if (!req.body.Username || !req.body.Email || !req.body.Password || !req.body.ConfirmPassword) {
             return res.status(400).json({msg: "Please enter all fields"});
         }
-        if (password.length < 6) {
+        if (req.body.Password.length < 6) {
             return res
                 .status(400)
                 .json({msg: "Password should be at least 6 characters"});
         }
-        if (confirmPassword !== password) {
+        if (req.body.ConfirmPassword !== req.body.Password) {
             return res.status(400).json({ msg: "Passwords do not match"});
         }
+        console.log("made it to 4");
         const existingUser = await User.findOne({email});
+        console.log(existingUser);
         if (existingUser) {
+            console.log("made it to 6 for some reason");
             return res
                 .status(400)
                 .json({ msg: "User with the same email already exists"})
         }
-        const hashedPassword = await bcryptjs.hash(password, 8);
-        const newUser = new User({ email, password: hashedPassword, username});
+        const hashedPassword = await bcryptjs.hash(req.body.Password, 8);
+        console.log("made it to 7");
+        const newUser = new User({ email: req.body.Email, password: hashedPassword, username: req.body.Username});
+        console.log("made it to 8");
+        console.log(newUser)
 
         const savedUser = await newUser.save();
+        console.log("made it to 9");
         console.log(savedUser.username);
         res.json(savedUser);
     } catch (err) {
         res.status(500).json({ error: err.message});
     }
 });
-
+/*
 
 // Login Route
 userRouter.post("/login", async (req, res) => {
@@ -108,5 +116,5 @@ userRouter.delete('/:userId', (req,res) => {
 
 
 
-
+*/
 module.exports = userRouter;

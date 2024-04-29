@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 export default function Register() {
   const router = useRouter();
 
-  const [username, setName]=useState('');
+  const [username, setUsername]=useState('');
   const [email, setEmail]=useState('');
   const [password, setPassword]=useState('');
   const [confirmPassword, setConfirmPassword]=useState('');
@@ -29,7 +29,7 @@ export default function Register() {
     
       try {
         console.log({Username: username, Email: email, Password: password, ConfirmPassword: confirmPassword});
-        const response = await axios.post('http://localhost:8085/api/users/register', { Username: username, Email: email, Password: password, ConfirmPassword: confirmPassword});
+        const response = await axios.post('http://localhost:8085/api/users/register', {Username: username, Email: email, Password: password, ConfirmPassword: confirmPassword});
         console.log('Login Successful:', response.data)
         alert('Account created successfully');
       } catch (error) {
@@ -59,7 +59,7 @@ export default function Register() {
           name="name"
           required
           className={styles.input}
-          onChange={(e) => {setName(e.target.value)}}
+          onChange={(e) => {setUsername(e.target.value)}}
         />
 
         <label htmlFor="email" className={styles.label}>
