@@ -12,7 +12,7 @@ const expenses = require("./routes/api/expenses");
 app.use('/api/users', users);
 app.use('/api/expenses', expenses);
 
-const conn_str = 'mongodb+srv://jms86025:3D8j84qg$@projectcluster.togn60n.mongodb.net/?retryWrites=true&w=majority&appName=ProjectCluster';
+const conn_str = 'mongodb+srv://dbrohank66:dbwebprogram24@projectcluster.zxyq81l.mongodb.net/?retryWrites=true&w=majority&appName=ProjectCluster';
 mongoose.set('strictQuery', false);
 mongoose.connect(conn_str).then(() => {
     app.listen(port, () => console.log(`Server running on port${port}`));

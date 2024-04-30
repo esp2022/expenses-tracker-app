@@ -6,6 +6,7 @@ import NewExpense from "../../components/NewExpense/NewExpense";
 import { useState } from "react";
 import Expenses from "../../components/Expenses/Expenses";
 import ExpenseChart from "../../components/ExpenseChart/ExpenseChart";
+import axios from 'axios';
 
 // Define Dashboard component
 export default function Dashboard() {
@@ -84,7 +85,24 @@ const addExpenseHandler = (expenseData) => {
   };
 
   // Define expense deletion function
-  const handleDelete = (id) => {
+const deleteExpense = async (expenseId) => {
+  try {
+    console.log(expenseId);
+      const response = await axios.delete(`http://localhost:8085/api/expenses/${expenseId}`);
+      console.log(response.data); // Log success message or handle as needed
+  } catch (error) {
+      console.error('Failed to delete expense:', error);
+  }
+};
+const handleDelete = async (expenseId) => {
+  try {
+      await deleteExpense(expenseId);
+      // Handle success, update UI, etc.
+  } catch (error) {
+      // Handle error
+  }
+};
+  /*const handleDelete = (id) => {
     console.log("Deleting item with id:", id);
     const expenseToDelete = expenses.find((expense) => expense.id === id);
     setExpensesTotal(
@@ -93,7 +111,7 @@ const addExpenseHandler = (expenseData) => {
     setExpenses((prevExpenses) =>
       prevExpenses.filter((item) => item.id !== id)
     );
-  };
+  };*/
 
   // Define functions to handle opening and closing modals
   const handleOpenAddExpenseModal = () => {

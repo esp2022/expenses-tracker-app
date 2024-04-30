@@ -10,13 +10,24 @@ expenseRouter.post("/add", async (req,res) => {
             return res.status(410).json({msg: "Missing an item"});
         }
         const newExpense = new Expense({ id: req.body.Id, img: req.body.Img, title: req.body.Title, category: req.body.Category, amount: req.body.Amount, date: req.body.Date});
-        console.log("1");
         const savedExpense = await newExpense.save();
-        console.log("2");
         res.json(savedExpense);
-        console.log("3");
     } catch (err) {
         res.status(500).json({error: err.message});
+    }
+});
+
+expenseRouter.delete("/:id", async (req, res) => {
+    try {
+        const expense = await Expense.findByIdAndDelete(req.body.id);
+        console.log(typeof req.params.id);
+        console.log(expense);
+        if (!expense) {
+            return res.status(404).json({ message: "Expense not found" });
+        }
+        res.json({ message: "Expense deleted successfully" });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
 });
 /*

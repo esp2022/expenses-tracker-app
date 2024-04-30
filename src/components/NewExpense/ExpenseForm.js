@@ -85,7 +85,8 @@ const ExpenseForm = (props) => {
       setId(Math.random());
       console.log("made it to z");
       console.log({Id: id, Img: enteredImg, Title: enteredTitle, Category: enteredCategory, Amount: enteredAmount, Date: enteredDate});
-      const response = await axios.post('http://localhost:8085/api/expenses/add', {Id: id, Img: enteredImg, Title: enteredTitle, Category: enteredCategory, Amount: enteredAmount, Date: enteredDate});
+      console.log("C");
+      const response = await axios.post('http://localhost:8085/api/expenses/add', {Id: id, Img: enteredImg, Title: enteredTitle, Category: enteredCategory, Amount: enteredAmount, Date: enteredDate})
       console.log("made it to a");
       console.log('Added Successfully', response.data);
       alert('Expense Added Successfully');
